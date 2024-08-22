@@ -57,14 +57,75 @@ app.post("/add", (req, res) => {
 
 // update a Todo
 
-// app.put("/update",(req, res) => {
-    
-// })
+app.patch("/update/",(req, res) => {
+       let item = req.body; 
+       // {id: 1, title: 'Learn Node.js', completed: true}
+       let {id, title, completed} = item;
+    //    console.log(id, title, completed);
 
+      let todoItem = todoList.find(todo=> todo.id === id);
+      let todoItemIndex = todoList.findIndex(todo=> todo.id === id);
+
+     let  updatedTodoItem = {...todoItem, 
+                 title:  title===undefined ? todoItem.title : title,
+                 completed: completed===undefined ? todoItem.completed : completed
+      }
+
+    //   console.log(todoItem);
+
+    todoList[todoItemIndex] = updatedTodoItem;
+
+       res.json({
+           message: "Todo updated successfully",
+           list: todoList
+       })
+})
+
+
+
+app.put("/update/:id",(req, res) => {
+    let item = req.body;
+    let id = req.params.id; 
+    // { title: 'Learn Node.js', completed: true}
+    let {title, completed} = item;
+    console.log(id, title, completed);
+
+   let todoItem = todoList.find(todo=> todo.id == id);
+   let todoItemIndex = todoList.findIndex(todo=> todo.id ==id);
+
+   console.log(todoItem,todoItemIndex);
+
+  let  updatedTodoItem = {...todoItem, 
+              title:  title===undefined ? todoItem.title : title,
+              completed: completed===undefined ? todoItem.completed : completed
+   }
+
+ //   console.log(todoItem);
+
+ todoList[todoItemIndex] = updatedTodoItem;
+
+    res.json({
+        message: "Todo updated successfully",
+        list: todoList
+    })
+})
 // delete a Todo
+
+
 
 
 
 app.listen(PORT, () => {
     console.log(`Server is running at http://localhost:${PORT}`);
 })
+
+
+
+arr = [10,20,30,40]
+
+// arr[0] = 100 => patch
+
+
+arr = [1,2,3]
+
+// put
