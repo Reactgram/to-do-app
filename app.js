@@ -109,7 +109,26 @@ app.put("/update/:id",(req, res) => {
         list: todoList
     })
 })
+
+
 // delete a Todo
+
+app.delete("/delete/:id", (req,res)=>{
+      let id = req.params.id; // 2
+
+      let tododoListUpdated  =  todoList.filter(todo=> todo.id != id);
+
+        todoList = tododoListUpdated;
+
+
+        res.json({
+            message: "Todo deleted successfully",
+            list: todoList
+        })
+        
+})
+
+
 
 
 
@@ -121,11 +140,3 @@ app.listen(PORT, () => {
 
 
 
-arr = [10,20,30,40]
-
-// arr[0] = 100 => patch
-
-
-arr = [1,2,3]
-
-// put
